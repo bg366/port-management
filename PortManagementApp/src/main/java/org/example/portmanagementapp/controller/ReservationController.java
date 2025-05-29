@@ -1,6 +1,7 @@
 package org.example.portmanagementapp.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.portmanagementapp.dto.ReservationRequest;
 import org.example.portmanagementapp.entity.Reservation;
 import org.example.portmanagementapp.service.ReservationService;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,8 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping
-    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
-        Reservation saved = reservationService.createReservation(reservation);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    public Reservation createReservation(@RequestBody ReservationRequest request) {
+        return reservationService.createReservation(request);
     }
 
     @GetMapping
