@@ -18,16 +18,23 @@ public class ReportController {
     private final MonthlyReportService reportService;
     private final DockReportService dockReportService;
     private final InvoiceService invoiceService;
+    private final YearlyReportService yearlyReportService;
 
-    public ReportController(MonthlyReportService reportService, DockReportService dockReportService, InvoiceService invoiceService) {
+    public ReportController(MonthlyReportService reportService, DockReportService dockReportService, InvoiceService invoiceService, YearlyReportService yearlyReportService) {
         this.reportService = reportService;
         this.dockReportService = dockReportService;
         this.invoiceService = invoiceService;
+        this.yearlyReportService = yearlyReportService;
     }
 
     @GetMapping("/monthly")
     public String generateMonthlyReport(@RequestParam int month, @RequestParam int year) {
         return reportService.generateReport(month, year);
+    }
+
+    @GetMapping("/yearly")
+    public String generateYearlyReport(@RequestParam int year) {
+        return yearlyReportService.generateReport(0, year);
     }
 
     @GetMapping("/dock")
