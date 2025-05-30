@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="sample-data-1" author="bartosz">
+
+        <!-- Users -->
+        <insert tableName="users">
+            <column name="id" valueNumeric="1"/>
+            <column name="username" value="admin"/>
+            <column name="email" value="admin@example.com"/>
+            <column name="password" value="admin"/>
+            <column name="role" value="ADMIN"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="id" valueNumeric="2"/>
+            <column name="username" value="user1"/>
+            <column name="email" value="user1@example.com"/>
+            <column name="password" value="user1"/>
+            <column name="role" value="USER"/>
+        </insert>
+
+        <!-- Boats -->
+        <insert tableName="boats">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Blue Fin"/>
+            <column name="type" value="Sailboat"/>
+            <column name="owner_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="boats">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Sea Breeze"/>
+            <column name="type" value="Yacht"/>
+            <column name="owner_id" valueNumeric="2"/>
+        </insert>
+
+        <!-- Places -->
+        <insert tableName="places">
+            <column name="id" valueNumeric="1"/>
+            <column name="number" valueNumeric="101"/>
+            <column name="length_limit" valueNumeric="12.5"/>
+            <column name="available" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="places">
+            <column name="id" valueNumeric="2"/>
+            <column name="number" valueNumeric="102"/>
+            <column name="length_limit" valueNumeric="15.0"/>
+            <column name="available" valueBoolean="true"/>
+        </insert>
+
+        <!-- Reservations -->
+        <insert tableName="reservations">
+            <column name="id" valueNumeric="1"/>
+            <column name="boat_id" valueNumeric="1"/>
+            <column name="place_id" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="2"/>
+            <column name="start_date" valueDate="2025-05-01"/>
+            <column name="end_date" valueDate="2025-05-10"/>
+        </insert>
+
+        <insert tableName="reservations">
+            <column name="id" valueNumeric="2"/>
+            <column name="boat_id" valueNumeric="2"/>
+            <column name="place_id" valueNumeric="2"/>
+            <column name="user_id" valueNumeric="2"/>
+            <column name="start_date" valueDate="2025-05-15"/>
+            <column name="end_date" valueDate="2025-05-20"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

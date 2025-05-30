@@ -1,0 +1,95 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.10.xsd">
+
+    <changeSet id="1" author="bartosz">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="bartosz">
+        <createTable tableName="boats">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="owner_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="boats"
+                baseColumnNames="owner_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_boat_owner"/>
+    </changeSet>
+
+    <changeSet id="3" author="bartosz">
+        <createTable tableName="places">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="number" type="INT"/>
+            <column name="length_limit" type="DOUBLE"/>
+            <column name="available" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="bartosz">
+        <createTable tableName="reservations">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="boat_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="place_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+
+            <column name="start_date" type="DATE"/>
+            <column name="end_date" type="DATE"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="reservations"
+                baseColumnNames="boat_id"
+                referencedTableName="boats"
+                referencedColumnNames="id"
+                constraintName="fk_reservation_boat"/>
+
+        <addForeignKeyConstraint
+                baseTableName="reservations"
+                baseColumnNames="place_id"
+                referencedTableName="places"
+                referencedColumnNames="id"
+                constraintName="fk_reservation_place"/>
+
+        <addForeignKeyConstraint
+                baseTableName="reservations"
+                baseColumnNames="user_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_reservation_user"/>
+    </changeSet>
+
+</databaseChangeLog>
