@@ -34,7 +34,7 @@ class InvoiceServiceTest {
 
     @Test
     void testGenerateForMonth_WithInvoices() {
-        yearmonth month = YearMonth.of(2023, 10);
+        YearMonth month = YearMonth.of(2023, 10);
         Invoice invoice1 = new Invoice("user1", 500.0, month);
         Invoice invoice2 = new Invoice("user2", 300.0, month);
 
