@@ -1,5 +1,6 @@
 package org.example.portmanagementapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,21 +20,27 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "boat_id", nullable = false)
+    @JsonBackReference
     private Boat boat;
 
     @ManyToOne
     @JoinColumn(name = "place_id", nullable = false)
+    @JsonBackReference
     private Place place;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     private LocalDate startDate;
     private LocalDate endDate;
 
     public double getTotalPrice() {
-        long days = ChronoUnit.DAYS.between(startDate, endDate);
-        return days * 100;
+        if (startDate == null || endDate == null || !endDate.isAfter(startDate)) {
+            return 0;
+        }
+        long numOfDays = ChronoUnit.DAYS.between(startDate, endDate);
+        return numOfDays * 100;
     }
 }

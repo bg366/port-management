@@ -1,5 +1,6 @@
 package org.example.portmanagementapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,5 +22,6 @@ public class Place {
     private boolean available;
 
     @OneToMany(mappedBy = "place")
+    @JsonManagedReference
     private List<Reservation> reservations;
 }

@@ -1,5 +1,7 @@
 package org.example.portmanagementapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,8 +23,10 @@ public class Boat {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
+    @JsonBackReference
     private User owner;
 
     @OneToMany(mappedBy = "boat")
+    @JsonManagedReference
     private List<Reservation> reservations;
 }

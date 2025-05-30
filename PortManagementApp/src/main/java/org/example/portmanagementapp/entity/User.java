@@ -1,5 +1,7 @@
 package org.example.portmanagementapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +28,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "owner")
+    @JsonManagedReference
     private List<Boat> boats;
 
     private String role;
