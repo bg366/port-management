@@ -20,7 +20,7 @@ public class DockReportService {
 
     public DockReportDto generateDockReport(LocalDate date) {
         List<Place> allPlaces = placeRepository.findAll();
-        List<Reservation> reservations = reservationRepository.findAllByStartDateBetween(date, date);
+        List<Reservation> reservations = reservationRepository.findAllActiveOnDate(date);
 
         int total = allPlaces.size();
         int occupied = (int) reservations.stream()

@@ -24,4 +24,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     );
 
     List<Reservation> findAllByStartDateBetween(LocalDate start, LocalDate end);
+
+    @Query("SELECT r FROM Reservation r WHERE :date BETWEEN r.startDate AND r.endDate")
+    List<Reservation> findAllActiveOnDate(@Param("date") LocalDate date);
 }
